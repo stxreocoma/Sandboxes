@@ -1,0 +1,24 @@
+
+* text=auto
+
+*.go      text eol=lf
+*.mod     text eol=lf
+go.sum    text eol=lf
+*.sh      text eol=lf
+Makefile  text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.md      text eol=lf
+
+*.exe     -text
+*.dll     -text
+*.so      -text
+*.dylib   -text
+*.png     -text
+*.jpg     -text
+*.jpeg    -text
+*.gif     -text
+*.pdf     -text
+*.zip     -text
+
+go.sum merge=union

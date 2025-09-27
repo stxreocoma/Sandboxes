@@ -1,0 +1,33 @@
+pre-commit:
+  parallel: true
+  commands:
+    gofmt:
+      run: make fmt
+    lint:
+      run: make lint
+    vet:
+      run: go vet ./...
+    tidy:
+      run: go mod tidy && git add go.mod go.sum
+
+pre-push:
+  commands:
+    tests:
+      run: make test
+
+commit-msg:
+  commands:
+    conventional:
+      run: |
+        MSG_FILE=$1
+        HEADER="$(head -n1 "$MSG_FILE")"
+        # allowed: feat|fix|refactor|perf|test|docs|ci|build|chore|style
+        if ! echo "$HEADER" | grep -Eq '^(feat|fix|refactor|perf|test|docs|ci|build|chore|style)(\([a-z0-9_.-]+\))?!?: .{1,}$'; then
+          echo "❌ Invalid commit message header:"
+          echo "   $HEADER"
+          echo "👉 Use: type(scope)?: short description"
+          echo "   Example: feat(pool): add queue overflow error"
+          exit 1
+        fi
+      env:
+        GIT_PARAMS: "{staged_files}"

@@ -1,0 +1,37 @@
+run:
+  timeout: 3m
+  tests: true
+
+linters:
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+    - ineffassign
+    - gosimple
+    - gocritic
+    - revive
+    - gofumpt       # формат в CI
+    - misspell      # опечатки
+    - errorlint     # корректная обработка ошибок
+    - nilerr        # return nil error проверки
+    - unconvert     # лишние приведения
+    # - prealloc    # включи, если готов править рекомендации по make(..., cap)
+
+linters-settings:
+  revive:
+    rules:
+      - name: exported
+        arguments: ["disableStutteringCheck"]
+  misspell:
+    locale: US
+  # пример: ослабить prealloc для тестов (если включишь линтер)
+  # prealloc:
+  #   for-loops: false
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - dupl
+        # - prealloc   # опционально — чтобы не шумел в тестах
