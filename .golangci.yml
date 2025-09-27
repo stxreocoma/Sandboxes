@@ -1,6 +1,14 @@
+version: 2
 run:
   timeout: 3m
   tests: true
+
+formatters:
+  enable:
+    - gofumpt
+  settings:
+    gofumpt:
+      extra-rules: false
 
 linters:
   enable:
@@ -8,15 +16,12 @@ linters:
     - errcheck
     - staticcheck
     - ineffassign
-    - gosimple
     - gocritic
-    - revive
-    - gofumpt       # формат в CI
-    - misspell      # опечатки
-    - errorlint     # корректная обработка ошибок
-    - nilerr        # return nil error проверки
-    - unconvert     # лишние приведения
-    # - prealloc    # включи, если готов править рекомендации по make(..., cap)
+    - revive      
+    - misspell      
+    - errorlint     
+    - nilerr        
+    - unconvert     
 
 linters-settings:
   revive:
@@ -25,13 +30,10 @@ linters-settings:
         arguments: ["disableStutteringCheck"]
   misspell:
     locale: US
-  # пример: ослабить prealloc для тестов (если включишь линтер)
-  # prealloc:
-  #   for-loops: false
 
 issues:
   exclude-rules:
     - path: _test\.go
       linters:
         - dupl
-        # - prealloc   # опционально — чтобы не шумел в тестах
+ 
