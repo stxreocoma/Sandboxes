@@ -9,6 +9,7 @@ formatters:
   settings:
     gofumpt:
       extra-rules: false
+      module-path: pool
 
 linters:
   enable:

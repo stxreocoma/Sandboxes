@@ -1,12 +1,15 @@
 .PHONY: fmt lint test ci
 
 fmt:
-	go fmt ./...
+	go fmt ./internal/...
 
 lint:
-	golangci-lint run
+	golangci-lint run ./internal/...
 
 test:
-	go test -v ./... -race -count=1
+	go test -v ./internal/... -race -count=1
 
-ci: fmt lint test
+ci: 
+	@$(MAKE) fmt 
+	@$(MAKE) lint 
+	@$(MAKE) test
