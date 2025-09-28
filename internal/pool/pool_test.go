@@ -34,7 +34,7 @@ func TestSubmit(t *testing.T) {
 		{
 			name: "stopped",
 			setup: func() Pool {
-				p := New(WithWorkers(1))
+				p := New(WithWorkers(0))
 				_ = p.Stop()
 				return p
 			},

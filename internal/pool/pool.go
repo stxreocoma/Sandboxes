@@ -65,6 +65,12 @@ func (p *pool) Submit(task func()) error {
 		return ErrNilTask
 	}
 
+	select {
+	case <-p.stopped:
+		return ErrStopped
+	default:
+	}
+
 	p.wg.Add(1)
 
 	select {
